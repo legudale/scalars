@@ -131,7 +131,7 @@ namespace scalars
             return candidate;
         }
 
-        public object NormalizeArgument(object arg)
+        public static object SanitizeArgument(object arg)
         {
             if (arg.GetType() == typeof(long))
             {
@@ -160,7 +160,7 @@ namespace scalars
             }
         }
 
-        public static object NormalizeList(List<object> ls)
+        public static object SanitizeList(List<object> ls)
         {
             Debug.Assert(ls.Count > 0);
             var t = ls[0].GetType();
@@ -201,7 +201,7 @@ namespace scalars
                 if (char.IsLower(tc))
                 {
                     Debug.Assert(tc == signature[si]);
-                    yield return NormalizeArgument(arguments[si]);
+                    yield return SanitizeArgument(arguments[si]);
                     si++;
                 }
                 else
@@ -214,7 +214,7 @@ namespace scalars
                         si++;
                     }
                     Debug.Assert(ls.Count > 0);
-                    yield return NormalizeList(ls);
+                    yield return SanitizeList(ls);
                 }
             }
 
